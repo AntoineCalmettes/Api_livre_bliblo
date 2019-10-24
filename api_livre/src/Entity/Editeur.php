@@ -7,9 +7,9 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\AuteurRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\EditeurRepository")
  */
-class Auteur
+class Editeur
 {
     /**
      * @ORM\Id()
@@ -24,23 +24,7 @@ class Auteur
     private $nom;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $prenom;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $ManyToOne;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Nationalite", inversedBy="auteurs")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $Nationalite;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Livre", mappedBy="auteur")
+     * @ORM\OneToMany(targetEntity="App\Entity\Livre", mappedBy="editeur")
      */
     private $livres;
 
@@ -66,42 +50,6 @@ class Auteur
         return $this;
     }
 
-    public function getPrenom(): ?string
-    {
-        return $this->prenom;
-    }
-
-    public function setPrenom(string $prenom): self
-    {
-        $this->prenom = $prenom;
-
-        return $this;
-    }
-
-    public function getManyToOne(): ?string
-    {
-        return $this->ManyToOne;
-    }
-
-    public function setManyToOne(?string $ManyToOne): self
-    {
-        $this->ManyToOne = $ManyToOne;
-
-        return $this;
-    }
-
-    public function getNationalite(): ?Nationalite
-    {
-        return $this->Nationalite;
-    }
-
-    public function setNationalite(?Nationalite $Nationalite): self
-    {
-        $this->Nationalite = $Nationalite;
-
-        return $this;
-    }
-
     /**
      * @return Collection|Livre[]
      */
@@ -114,7 +62,7 @@ class Auteur
     {
         if (!$this->livres->contains($livre)) {
             $this->livres[] = $livre;
-            $livre->setAuteur($this);
+            $livre->setEditeur($this);
         }
 
         return $this;
@@ -125,8 +73,8 @@ class Auteur
         if ($this->livres->contains($livre)) {
             $this->livres->removeElement($livre);
             // set the owning side to null (unless already changed)
-            if ($livre->getAuteur() === $this) {
-                $livre->setAuteur(null);
+            if ($livre->getEditeur() === $this) {
+                $livre->setEditeur(null);
             }
         }
 
