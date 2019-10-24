@@ -2,18 +2,28 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\GenreRepository;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class ApiGenreController extends AbstractController
 {
     /**
-     * @Route("/api/genre", name="api_genre")
+     * @Route("/api/genres", name="api_genres", methods={"GET"})
      */
-    public function index()
+    public function list(GenreRepository $repo,SerializerInterface $serializer)
     {
-        return $this->render('api_genre/index.html.twig', [
-            'controller_name' => 'ApiGenreController',
-        ]);
+        $genres=$repo->findAll();
+        $resultat=$serializer->serialize(
+            $genres,
+            'json',
+            [
+                'groups'=>['listGenreFull']
+            ]
+        );
+
+        return new JsonResponse($resultat, 200,[],true);
     }
 }
