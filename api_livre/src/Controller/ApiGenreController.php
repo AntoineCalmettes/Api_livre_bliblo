@@ -11,6 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ApiGenreController extends AbstractController
 {
@@ -50,17 +51,51 @@ class ApiGenreController extends AbstractController
     /**
      * @Route("/api/genres", name="api_genres_create", methods={"POST"})
      */
-    public function create(Request $request, Genre $genre, SerializerInterface $serializer, ObjectManager $manager)
+    public function create(Request $request, Genre $genre, SerializerInterface $serializer, ObjectManager $manager, ValidatorInterface $validate)
     {
         $data =$request->getContent();
 
         $genre = $serializer->deserialize($data, Genre::class,'json');
-
+        // $errors=$validate->validate($genre);
+        // if($errors){
+        //     $errorJson = $serializer->serialize($errors,'json');
+        //     return new JsonResponse($errorJson,Response::HTTP_BAD_REQUEST,[],true);
+        // }
         $manager->persist($genre);
         $manager->flush();
 
-        return new JsonResponse("le genre a bien était crée", Response::HTTP_CREATED,[
+        return new JsonResponse(null, Response::HTTP_CREATED,[
             "location"=>"api/genre/".$genre->getId()
         ],true);
+    }
+
+       /**
+     * @Route("/api/genres/{id}", name="api_genres_update", methods={"PUT"})
+     */
+    public function edit(Genre $genre,SerializerInterface $serializer,Request $request,ObjectManager $manager,ValidatorInterface $validate)
+    {
+        $data = $request->getContent();
+        $resultat=$serializer->deserialize($data,Genre::class,'json',['object_to_populate'=>$genre]);
+        $errors= $validate->validate($genre);
+        if($errors){
+            $errorJson = $serializer->serialize($errors,'json');
+            return new JsonResponse($errorJson,Response::HTTP_BAD_REQUEST,[],true);
+        }
+        $manager->persist($genre);
+        $manager->flush();
+
+        return new JsonResponse("le genre à était modifié", Response::HTTP_OK,[],true);
+    }
+
+        /**
+     * @Route("/api/genres/{id}", name="api_genres_delete", methods={"DELETE"})
+     */
+    public function delete(Genre $genre,SerializerInterface $serializer,Request $request,ObjectManager $manager)
+    {
+
+        $manager->remove($genre);
+        $manager->flush();
+
+        return new JsonResponse("le genre à était supprimer", Response::HTTP_OK,[],false);
     }
 }

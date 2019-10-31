@@ -18,5 +18,8 @@ return [
     'api' => [[], ['_controller' => 'App\\Controller\\ApiController::index'], [], [['text', '/api']], [], []],
     'api_genres' => [[], ['_controller' => 'App\\Controller\\ApiGenreController::list'], [], [['text', '/api/genres']], [], []],
     'api_genres_show' => [['id'], ['_controller' => 'App\\Controller\\ApiGenreController::show'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/api/genres']], [], []],
+    'api_genres_create' => [[], ['_controller' => 'App\\Controller\\ApiGenreController::create'], [], [['text', '/api/genres']], [], []],
+    'api_genres_update' => [['id'], ['_controller' => 'App\\Controller\\ApiGenreController::edit'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/api/genres']], [], []],
+    'api_genres_delete' => [['id'], ['_controller' => 'App\\Controller\\ApiGenreController::delete'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/api/genres']], [], []],
     'easyadmin' => [[], ['_controller' => 'EasyCorp\\Bundle\\EasyAdminBundle\\Controller\\EasyAdminController::indexAction'], [], [['text', '/admin/']], [], []],
 ];

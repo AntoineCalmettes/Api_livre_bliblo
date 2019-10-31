@@ -14,7 +14,10 @@ return [
         '/_profiler/phpinfo' => [[['_route' => '_profiler_phpinfo', '_controller' => 'web_profiler.controller.profiler::phpinfoAction'], null, null, null, false, false, null]],
         '/_profiler/open' => [[['_route' => '_profiler_open_file', '_controller' => 'web_profiler.controller.profiler::openAction'], null, null, null, false, false, null]],
         '/api' => [[['_route' => 'api', '_controller' => 'App\\Controller\\ApiController::index'], null, null, null, false, false, null]],
-        '/api/genres' => [[['_route' => 'api_genres', '_controller' => 'App\\Controller\\ApiGenreController::list'], null, ['GET' => 0], null, false, false, null]],
+        '/api/genres' => [
+            [['_route' => 'api_genres', '_controller' => 'App\\Controller\\ApiGenreController::list'], null, ['GET' => 0], null, false, false, null],
+            [['_route' => 'api_genres_create', '_controller' => 'App\\Controller\\ApiGenreController::create'], null, ['POST' => 0], null, false, false, null],
+        ],
         '/admin' => [[['_route' => 'easyadmin', '_controller' => 'EasyCorp\\Bundle\\EasyAdminBundle\\Controller\\EasyAdminController::indexAction'], null, null, null, true, false, null]],
     ],
     [ // $regexpList
@@ -34,7 +37,9 @@ return [
                         .'|(*:159)'
                     .')'
                 .')'
-                .'|/api/genres/([^/]++)(*:189)'
+                .'|/api/genres/([^/]++)(?'
+                    .'|(*:192)'
+                .')'
             .')/?$}sDu',
     ],
     [ // $dynamicRoutes
@@ -45,8 +50,10 @@ return [
         136 => [[['_route' => '_profiler_exception', '_controller' => 'web_profiler.controller.exception::showAction'], ['token'], null, null, false, false, null]],
         149 => [[['_route' => '_profiler_exception_css', '_controller' => 'web_profiler.controller.exception::cssAction'], ['token'], null, null, false, false, null]],
         159 => [[['_route' => '_profiler', '_controller' => 'web_profiler.controller.profiler::panelAction'], ['token'], null, null, false, true, null]],
-        189 => [
+        192 => [
             [['_route' => 'api_genres_show', '_controller' => 'App\\Controller\\ApiGenreController::show'], ['id'], ['GET' => 0], null, false, true, null],
+            [['_route' => 'api_genres_update', '_controller' => 'App\\Controller\\ApiGenreController::edit'], ['id'], ['PUT' => 0], null, false, true, null],
+            [['_route' => 'api_genres_delete', '_controller' => 'App\\Controller\\ApiGenreController::delete'], ['id'], ['DELETE' => 0], null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],
     ],

@@ -5214,11 +5214,34 @@
         <argument key="serializer" type="service" id="serializer"/>
       </argument>
     </service>
-    <service id=".service_locator.yd5CVVW" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.uMflkEJ" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
+        <argument key="genre" type="service" id=".errored..service_locator.uMflkEJ.App\Entity\Genre"/>
+        <argument key="manager" type="service" id="doctrine.orm.default_entity_manager"/>
+        <argument key="serializer" type="service" id="serializer"/>
+        <argument key="validate" type="service" id="debug.validator"/>
+      </argument>
+    </service>
+    <service id=".service_locator.6qBR3cr" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="genre" type="service" id=".errored..service_locator.6qBR3cr.App\Entity\Genre"/>
+        <argument key="manager" type="service" id="doctrine.orm.default_entity_manager"/>
+        <argument key="serializer" type="service" id="serializer"/>
+      </argument>
+    </service>
+    <service id=".service_locator.VvqefaD" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="App\Controller\ApiGenreController::create" type="service" id=".service_locator.uMflkEJ"/>
+        <argument key="App\Controller\ApiGenreController::delete" type="service" id=".service_locator.6qBR3cr"/>
+        <argument key="App\Controller\ApiGenreController::edit" type="service" id=".service_locator.uMflkEJ"/>
         <argument key="App\Controller\ApiGenreController::list" type="service" id=".service_locator.qaoVO5q"/>
         <argument key="App\Controller\ApiGenreController::show" type="service" id=".service_locator.Fg1zQj6"/>
+        <argument key="App\Controller\ApiGenreController:create" type="service" id=".service_locator.uMflkEJ"/>
+        <argument key="App\Controller\ApiGenreController:delete" type="service" id=".service_locator.6qBR3cr"/>
+        <argument key="App\Controller\ApiGenreController:edit" type="service" id=".service_locator.uMflkEJ"/>
         <argument key="App\Controller\ApiGenreController:list" type="service" id=".service_locator.qaoVO5q"/>
         <argument key="App\Controller\ApiGenreController:show" type="service" id=".service_locator.Fg1zQj6"/>
       </argument>
@@ -5647,12 +5670,12 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
-      <argument type="service" id=".service_locator.yd5CVVW"/>
+      <argument type="service" id=".service_locator.VvqefaD"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver" public="false"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver" public="false">
-      <argument type="service" id=".service_locator.yd5CVVW"/>
+      <argument type="service" id=".service_locator.VvqefaD"/>
     </service>
     <service id=".service_locator.UwRI0uT" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
@@ -5677,6 +5700,8 @@
       </argument>
     </service>
     <service id=".errored..service_locator.Fg1zQj6.App\Entity\Genre" class="App\Entity\Genre"/>
+    <service id=".errored..service_locator.uMflkEJ.App\Entity\Genre" class="App\Entity\Genre"/>
+    <service id=".errored..service_locator.6qBR3cr.App\Entity\Genre" class="App\Entity\Genre"/>
     <service id="console.command_loader" class="Symfony\Component\Console\CommandLoader\ContainerCommandLoader" public="true">
       <argument type="service" id=".service_locator.hskxKR3"/>
       <argument type="collection">
@@ -6044,7 +6069,7 @@
     <service id="EasyCorp\Bundle\EasyAdminBundle\Search\Autocomplete" alias="easyadmin.autocomplete"/>
     <service id="EasyCorp\Bundle\EasyAdminBundle\Security\AuthorizationChecker" alias="easyadmin.security.authorization_checker"/>
     <service id="EasyCorp\Bundle\EasyAdminBundle\Form\Filter\FilterRegistry" alias="easyadmin.filter.registry" public="true"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.yd5CVVW"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.VvqefaD"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem" public="false"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="validator" alias="debug.validator" public="true"/>
